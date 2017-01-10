@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="fonts/iconfont.css">
+    <style>
+        * {
+				font-family: simhei, Helvetica, Arial, sans-serif;
+		}
+
+
+        .dialog{
+            width: 480px;
+            position: fixed;
+            left: 50%;
+            top:2em;
+            z-index: 2000;
+            visibility: hidden;
+            perspective: 1500px;
+            /*backface-visibility: hidden;*/
+            margin-left: -240px;
+        }
+
+        .dialog-content{
+            border-radius: 3px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: 1s ease-in-out;
+            opacity: 0;
+            /*transform-style: preserve-3d;*/
+            transform: rotateY(-70deg);
+        }
+
+
+        .dialog-header {
+			background: #cb4a70;
+			color: #fff;
+	    }
+
+        .dialog-title{
+            font-size: 2em;
+            line-height: 2em;
+            font-weight: 200;
+            text-align: center;
+            margin: 0px;
+        }
+
+        .dialog-body{
+            padding: 2em;
+        }
+
+        .dialog-footer{
+            margin:0 2em;
+            padding: 2em 0;
+            text-align: right;
+            border-top:1px solid rgba(0, 0, 0, .1);
+        }
+
+        .btn{
+            padding: 5px 10px;
+            background: #cb4a70;
+            font-size: 1.5em;
+            color: #fff;
+            border-radius: 3px;
+            border: 1px solid #cb4a70;
+            box-sizing: border-box;
+        }
+
+        .close{
+            display: inline-block;
+            position: absolute;
+            top:.5rem;
+            right: .5rem;
+            width: 2em;
+            height: 2em;
+        }
+
+        .close .iconfont{
+            font-size: 2rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <model-dialog>
+            <header slot="header" class="dialog-header">
+                <h1 class="dialog-title">提示信息</h1>
+            </header>
+            <div class="dialog-body" slot="body">
+                <p>neirong</p>
+            </div>
+            <footer class="dialog-footer" slot="footer">
+                <button class="btn">关闭</button>
+            </footer>
+        </model-dialog>
+    </div>
+    
+    <button id="btn" type="button">111</button>
+
+    <template id="template-dialog">
+        <div class="dialogs">
+            <div class="dialog">
+                <div class="dialog-content">
+                    <div class="close">
+                        <span class="iconfont icon-close"></span>
+                    </div>
+                    <slot name="header"></slot>
+                    <slot name="body"></slot>
+                    <slot name="footer"></slot>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.component("model-dialog",{
+        template:"#template-dialog"
+    })
+
+    new Vue({
+        el:"#app"
+    })
+   
+        document.getElementById("btn").onclick = function(){
+            document.getElementsByClassName('dialog')[0].style.visibility = 'visible';
+            document.getElementsByClassName('dialog-content')[0].style.transform = 'rotateY(0)';
+            document.getElementsByClassName('dialog-content')[0].style.opacity = 1;
+        }
+    
+   
+</script>
+</html>
